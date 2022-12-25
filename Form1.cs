@@ -172,11 +172,84 @@ namespace BDTT
             uc_list[] songlists = new uc_list[dt_All.Rows.Count * dt_All.Rows.Count];
             var i = 0;
 
-            if(textBox1.Text == "không sử dụng đèn chiếu sáng khi trời tối")
+            if (textBox1.Text == "không sử dụng đèn chiếu sáng khi trời tối")
             {
+                int[] arr = {73, 74};
+                for (int j = 0; j < arr.Length; j++)
+                {
+                    songlists[i] = new uc_list();
+
+                    songlists[i].label1.Text = dt_All.Rows[arr[j]]["Noidung"].ToString();
+                    songlists[i].lab_id.Text = arr[j].ToString();
+
+                    flowLayoutPanel1.Controls.Add(songlists[i]);
+
+                    songlists[i].Click += new System.EventHandler(this.Usercontrol_Click);
+                }
+            }
+            else if (textBox1.Text == "buông 2 tay khi điều khiển xe")
+            {
+                int[] arr = {125,126,127};
+                for (int j = 0; j < arr.Length; j++)
+                {
+                    songlists[i] = new uc_list();
+
+                    songlists[i].label1.Text = dt_All.Rows[arr[j]]["Noidung"].ToString();
+                    songlists[i].lab_id.Text = arr[j].ToString();
+
+                    flowLayoutPanel1.Controls.Add(songlists[i]);
+
+                    songlists[i].Click += new System.EventHandler(this.Usercontrol_Click);
+                }
+            }
+            else if (textBox1.Text == "chở theo 3 người trở lên")
+            {
+                int[] arr = { 129,130 };
+                for (int j = 0; j < arr.Length; j++)
+                {
+                    songlists[i] = new uc_list();
+
+                    songlists[i].label1.Text = dt_All.Rows[arr[j]]["Noidung"].ToString();
+                    songlists[i].lab_id.Text = arr[j].ToString();
+
+                    flowLayoutPanel1.Controls.Add(songlists[i]);
+
+                    songlists[i].Click += new System.EventHandler(this.Usercontrol_Click);
+                }
+            }
+            else if (textBox1.Text == "quay đầu xe tại nơi cấm quay đầu xe")
+            {
+                int[] arr = { 58,59 };
+                for (int j = 0; j < arr.Length; j++)
+                {
+                    songlists[i] = new uc_list();
+
+                    songlists[i].label1.Text = dt_All.Rows[arr[j]]["Noidung"].ToString();
+                    songlists[i].lab_id.Text = arr[j].ToString();
+
+                    flowLayoutPanel1.Controls.Add(songlists[i]);
+
+                    songlists[i].Click += new System.EventHandler(this.Usercontrol_Click);
+                }
+            }
+
+            else
+            {
+                StringComparison stringComparison;
+                EnumerableRowCollection<DataRow> matches;
+
+                stringComparison = StringComparison.Ordinal; //bỏ qua viet HOA
+
+                //matches = dt_All.AsEnumerable().Where(row => row.Field<string>("Noidung").IndexOf(textBox1.Text.ToString(), stringComparison) != -1);
+                matches = dt_All.AsEnumerable().Where(r => r.Field<string>("Noidung").Contains(textBox1.Text));
+
                 i = 0;
-                for (int index = 73; index <= 74; index++)
-                { 
+
+                foreach (var match in matches)
+                {
+                    int index = dt_All.Rows.IndexOf(match);
+
+
                     songlists[i] = new uc_list();
 
                     songlists[i].label1.Text = dt_All.Rows[index]["Noidung"].ToString();
@@ -185,32 +258,8 @@ namespace BDTT
                     flowLayoutPanel1.Controls.Add(songlists[i]);
 
                     songlists[i].Click += new System.EventHandler(this.Usercontrol_Click);
+                    i++;
                 }
-            }
-            StringComparison stringComparison;
-            EnumerableRowCollection<DataRow> matches;
-
-            stringComparison = StringComparison.Ordinal; //bỏ qua viet HOA
-
-            //matches = dt_All.AsEnumerable().Where(row => row.Field<string>("Noidung").IndexOf(textBox1.Text.ToString(), stringComparison) != -1);
-            matches = dt_All.AsEnumerable().Where(r => r.Field<string>("Noidung").Contains(textBox1.Text));
-
-            i = 0;
-
-            foreach (var match in matches)     
-            {
-                int index = dt_All.Rows.IndexOf(match);
-
-
-                songlists[i] = new uc_list();
-
-                songlists[i].label1.Text = dt_All.Rows[index]["Noidung"].ToString();
-                songlists[i].lab_id.Text = index.ToString();
-
-                flowLayoutPanel1.Controls.Add(songlists[i]);
-
-                songlists[i].Click += new System.EventHandler(this.Usercontrol_Click);
-                i++;
             }
         }
 
